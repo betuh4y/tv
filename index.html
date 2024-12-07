@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistir Canais ao Vivo</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        background-color: #333;
+        color: #fff;
+        padding: 10px 0;
+        text-align: center;
+      }
+
+      .channel-list {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+      }
+
+      .channel-item {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        margin: 10px 0;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 5px;
+      }
+
+      .video-container {
+        width: 100%;
+        max-width: 800px;
+        margin: 20px auto;
+      }
+
+      video {
+        width: 100%;
+        height: 500px;
+        background-color: black;
+      }
+    </style>
+    <script type="text/javascript" src="./index.js" defer=""></script>
+    <link rel="stylesheet" href="./index.css">
+  </head>
+
+  <body>
+
+    <header>
+      <h1>Assista aos Canais ao Vivo</h1>
+    </header>
+
+    <div class="channel-list">
+      <div class="channel-item">
+        <span>AEE 4K</span>
+        <button onclick="playStream('http://authxplus-2.xyz:2082/Tourobox1-AvhUTjrWDv/5tbtPRF0Jc/225')">Assistir</button>
+      </div>
+      <div class="channel-item">
+        <span>AGRO+ 4K</span>
+        <button onclick="playStream('http://authxplus-2.xyz:2082/Tourobox1-AvhUTjrWDv/5tbtPRF0Jc/852')">Assistir</button>
+      </div>
+      <div class="channel-item">
+        <span>AMAZON ESPORTES 1</span>
+        <button onclick="playStream('http://authxplus-2.xyz:2082/Tourobox1-AvhUTjrWDv/5tbtPRF0Jc/1067')">Assistir</button>
+      </div>
+      <div class="channel-item">
+        <span>AMAZON ESPORTES 2</span>
+        <button onclick="playStream('http://authxplus-2.xyz:2082/Tourobox1-AvhUTjrWDv/5tbtPRF0Jc/1010')">Assistir</button>
+      </div>
+      <div class="channel-item">
+        <span>AMAZON ESPORTES 3</span>
+        <button onclick="playStream('http://authxplus-2.xyz:2082/Tourobox1-AvhUTjrWDv/5tbtPRF0Jc/1158')">Assistir</button>
+      </div>
+      <div class="channel-item">
+        <span>AMAZON ESPORTES 4</span>
+        <button onclick="playStream('http://authxplus-2.xyz:2082/Tourobox1-AvhUTjrWDv/5tbtPRF0Jc/xxx')">Assistir</button>
+      </div>
+    </div>
+
+    <div class="video-container">
+      <video id="video" controls=""></video>
+    </div>
+
+    <!-- hls.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <script>
+      function playStream(url) {
+        const video = document.getElementById('video');
+        if (Hls.isSupported()) {
+          const hls = new Hls();
+          hls.loadSource(url); // Define o link do stream
+          hls.attachMedia(video);
+          hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            video.play();
+          });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+          // Para navegadores que suportam HLS nativamente (como Safari)
+          video.src = url;
+          video.addEventListener('loadedmetadata', function() {
+            video.play();
+          });
+        } else {
+          alert('Este navegador não suporta a reprodução do vídeo.');
+        }
+      }
+    </script>
+
+
+
+  </body>
+
+</html>
